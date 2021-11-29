@@ -1,0 +1,83 @@
+<div class="container">
+  <button (click)="open(content)" class="add-btn btn-icon btn btn-warning"><i class="fa fa-plus-square-o"></i>&nbsp; إضافة موظف</button>
+
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">إضافة موظف جديد</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form ngForm="form" (submit)="submit()">
+        <div class="form-group">
+          <label for="name">اسم الموظف</label>
+          <input [(ngModel)]="employeeService.employee.employeeName" type="text" name="name" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="username">اسم المستخدم</label>
+          <input [(ngModel)]="employeeService.employee.userName"t type="text" name="username" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="email">البريد الإلكتروني</label>
+          <input [(ngModel)]="employeeService.employee.email" type="email" name="email" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="password">كلمة المرور</label>
+          <input [(ngModel)]="employeeService.employee.password" type="password" name="password" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="coniformPassword">تأكيد كلمة المرور</label>
+          <input [(ngModel)]="employeeService.employee.coniformPassword" type="password" name="coniformPassword" class="form-control">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <input type="submit" class="btn btn-outline-warning" value="حفظ">
+    </div>
+  </ng-template>
+
+
+
+  <div class=".table">
+    <table class="table table-bordered shadow p-3 mb-5 bg-white rounded">
+      <thead>
+        <tr>
+          <th>الرقم</th>
+          <th>اسم الموظف</th>
+          <th>الأحلام المفسرة</th>
+          <th>الأحلام قيد التفسير</th>
+          <th>اسم المستخدم</th>
+          <th>البريد الإلكتروني</th>
+          <th>كلمة المرور</th>
+          <th>متوسط وقت التفسير</th>
+          <th>الرصيد المتوفر</th>
+          <th>الرصبد المحول</th>
+          <th colspan="2" style="text-align: center;">الإعدادات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of employee| paginate: { itemsPerPage: 10, currentPage: p }; index as i">
+          <td>{{ (10 * (p - 1) + i) + 1 }}</td>
+          <td>{{item.employeeName}}</td>
+          <td>{{item.doneDreamsNumber}}</td>
+          <td>{{item.inProgressDreamsNumber}}</td>
+          <td>{{item.userName}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.password}}</td>
+          <td>{{item.averageTime}}</td>
+          <td>{{item.availableBalance}}</td>
+          <td>{{item.transferredBalance}}</td>
+
+          <td><mat-icon style="color: #63a104">edit</mat-icon></td>
+          <td><mat-icon style="color: red;">delete</mat-icon></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+      <pagination-controls
+      previousLabel="السابق"
+      nextLabel="التالي"  (pageChange)="p = $event" class="col-md-10"></pagination-controls>
+    </div>
+  </div>
+</div>
