@@ -1,7 +1,7 @@
 export interface Dream {
-  employeeName: string;
-  dreamUrl: string;
-  tafsirHour: number;
-  tafsirDate: string;
-  tafsirDuration: number;
+  createtionDate?: any
+  dream?: string
+  interpretationPeriod?: any
+  interpretationTime?: any
+  interpreterName?: string
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Employee } from '../models/employee.model';
 import { EmployeeServiceService } from '../services/employee/employee-service.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-employees',
@@ -10,47 +11,59 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   providers: [NgbModalConfig, NgbModal],
 })
 export class EmployeesComponent implements OnInit {
-  employee: Employee[] = [];
+  //employee: Employee[] = [];
   p = 1;
+  isCreated: boolean = false
   constructor(
-    public employeeService: EmployeeServiceService,
+    public service: EmployeeServiceService,
     config: NgbModalConfig,
     private modalService: NgbModal
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
+  form = new FormGroup({
+    email: new FormControl(null, [Validators.required]),
+    name: new FormControl(null, [Validators.required]),
+    username: new FormControl(null, [Validators.required]),
+    type: new FormControl("Service_Provider"),
+    password: new FormControl(null, [Validators.required]),
+    confirmPassword: new FormControl(null, [Validators.required]),
+    phonenumber: new FormControl(null, [Validators.required]),
+    PictureId: new FormControl(1)
+  })
 
   ngOnInit(): void {
-    this.getAllEmployees();
-    this.addNewEmployee();
+    // this.service.employee ={
+    //   name: '',
+    //   username: '',
+    //   password: '',
+    this.service.getAllEmployees();
   }
-
-  getAllEmployees() {
-    this.employee = this.employeeService.getAllEmployees();
-  }
-
-  addNewEmployee() {
-    this.employeeService.employee = {
-      employeeName: '',
-      doneDreamsNumber: 0,
-      inProgressDreamsNumber: 0,
-      userName: '',
-      email: '',
-      password: '',
-      coniformPassword: '',
-      averageTime: 0,
-      pictureId: '1',
-      availableBalance: 0,
-      transferredBalance: 0,
-    };
-  }
-
   open(content: any) {
     this.modalService.open(content);
   }
 
-  submit() {
-    this.employeeService.addNewEmployee()
+  addNewEmployee(){
+    if(this.form.valid){
+      let employeeModel = Object.assign({},this.form.value)
+      this.service.addNewEmployee(employeeModel).subscribe(res=>{
+        this.service.getAllEmployees()
+        this.isCreated = true
+        // console.log(purchaseModel)
+      },err=>{
+        err = console.log(err)
+      })
+    }
   }
+
+  // submit(form: NgForm) {
+  //   this.service.addNewEmployee().subscribe(res=>{
+  //     this.service.getAllEmployees()
+  //     console.log(res)
+  //   },
+  //   err=>{
+  //     console.log(err)
+  //   })
+  // }
 }

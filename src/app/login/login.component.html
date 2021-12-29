@@ -1,8 +1,8 @@
 <div class="body">
   <h2 class="text-center">تسجيل الدخول</h2>
     <form #f="ngForm" (ngSubmit)="signedIn(f)">
-    <input ngModel name="userName" #userName="ngModel" class="form-control" type="text" placeholder="اسم المستخدم" required>
-    <div class="alert alert-danger" *ngIf="userName.invalid && userName.touched">اسم المستخدم مطلوب</div>
+    <input ngModel name="email" #email="ngModel" class="form-control" type="email" placeholder="البريد الإلكتروني" required email="">
+    <div class="alert alert-danger" *ngIf="email.invalid && email.touched">البريد الإلكتروني مطلوب</div>
     <input ngModel name="password" #password="ngModel" class="form-control" type="password" placeholder="كلمة المرور" required>
     <div class="alert alert-danger" *ngIf="password.invalid && password.touched">كلمة المرور مطلوبة</div>
     <button class="btn btn-warning" [disabled]="f.invalid" (cilick)="signedIn(f)"> تسجيل الدخول </button>

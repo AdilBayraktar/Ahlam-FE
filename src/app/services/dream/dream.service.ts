@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Dream } from 'src/app/models/dream.model';
 
@@ -5,15 +6,13 @@ import { Dream } from 'src/app/models/dream.model';
   providedIn: 'root'
 })
 export class DreamService {
-
-  constructor() { }
-
+  url = "http://mks2000-001-site1.etempurl.com/api/controlPanel/GetDreamsList"
+  constructor(private http: HttpClient) { }
+  dreams: any[] = [];
   getAllDreams(){
-    let list: Dream[] = []
-
-    for(let i = 0; i< 100; i++){
-      list.push({employeeName: "Ahmed", dreamUrl: "https/testUrl.com", tafsirHour: 5, tafsirDate: "15/12/2020", tafsirDuration : 15})
-    }
-    return list
-  }
+      this.http.get<Dream[]>(this.url).toPromise()
+      .then((res) => {
+        this.dreams = res;
+      });
+}
 }

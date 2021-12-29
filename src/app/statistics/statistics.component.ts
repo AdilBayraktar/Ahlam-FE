@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { StatisticsService } from '../services/statistics.service';
 declare var require: any;
 
 
@@ -10,9 +11,11 @@ declare var require: any;
 })
 export class StatisticsComponent implements OnInit {
 
-  constructor() { }
+  constructor( public service: StatisticsService) { }
 
   ngOnInit(): void {
+    //this.service.getAllStatistics();
+    this.service.getAllStatistics()
   }
 
 

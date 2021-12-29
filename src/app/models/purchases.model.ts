@@ -5,7 +5,6 @@ export interface Purchases {
     id: number,
     NumberOfInterpreters?: number,
     Price?: number,
-    purchasesNumber?: number,
     Enabled?: boolean,
     CreationDate?: Date,
     LastModificationDate?: Date,

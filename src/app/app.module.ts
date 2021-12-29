@@ -1,6 +1,5 @@
 import { NgModule, Pipe } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -21,6 +20,10 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+// import { AngularFireModule } from 'angularfire2';
+// import { AngularFirestoreModule } from 'angularfire2/firestore';
+// import { AngularFireAuthModule } from 'angularfire2/auth'
+// import { environment } from 'src/environments/environment';
 
 
 
@@ -34,7 +37,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
     DreamsComponent,
     UsersComponent,
     PurchasesComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,10 +52,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule
-
-
-
+    NgbModule,
+    // AngularFireModule.initializeApp(environment.firebase),
+    // AngularFirestoreModule,
+    // AngularFireAuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

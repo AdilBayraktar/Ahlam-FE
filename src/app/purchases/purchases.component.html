@@ -14,7 +14,46 @@
     </div>
 
   </div>
-  <button  class="btn-icon btn btn-warning"><i class="fa fa-plus-square-o"></i>&nbsp; إضافة باقة</button>
+
+  <!--Start Add New Package-->
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">إضافة باقة جديدة</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="form">
+        <div class="form-group">
+          <label for="name">عدد المفسرين</label>
+          <input formControlName="NumberOfInterpreters" type="" name="NumberOfInterpreters" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="username">السعر</label>
+          <input formControlName="Price" type="text" name="Price" class="form-control" required>
+        </div>
+        <!-- <div class="form-group">
+          <label for="email">البريد الإلكتروني</label>
+          <input [(ngModel)]="service.employee.email" type="email" name="email" class="form-control">
+        </div> -->
+        <!-- <div class="form-group">
+          <label for="coniformPassword">تأكيد كلمة المرور</label>
+          <input [(ngModel)]="employeeService.employee.coniformPassword" type="password" name="coniformPassword" class="form-control">
+        </div> -->
+        <div class="modal-footer">
+          <button class="btn btn-warning" type="submit" [disabled]="!form.valid" (click)="addNewPurchase()"> حفظ</button>
+        </div>
+        <div class="col-md-12">
+          <p *ngIf="isCreated" class="alert alert-success">تمت الإضافة بنجاح</p>
+        </div>
+      </form>
+
+    </div>
+  </ng-template>
+  <!--End Add New Package-->
+
+
   <div class=".table">
     <table class="table table-bordered shadow p-3 mb-5 bg-white rounded">
       <thead>
@@ -28,13 +67,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of purchases| paginate: { itemsPerPage: 10, currentPage: p }; index as i">
-          <td>{{ item.id }}</td>
-          <td>{{item.NumberOfInterpreters}}</td>
-          <td>{{item.Price}}</td>
+        <tr *ngFor="let item of service.purchases| paginate: { itemsPerPage: 10, currentPage: p }; index as i">
+          <td>{{ item?.id }}</td>
+          <td>{{item?.NumberOfInterpreters}}</td>
+          <td>{{item?.Price}}</td>
           <!-- <td>{{item.inProgressDreamsNumber}}</td> -->
           <!-- <td>{{item.purchasesNumber}}</td> -->
-          <td><mat-icon style="color: #63a104">edit</mat-icon></td>
+          <td><mat-icon style="color: #63a104" (click)="open(updateModal)">edit</mat-icon></td>
           <td><mat-icon style="color: red;">delete</mat-icon></td>
         </tr>
       </tbody>
@@ -57,3 +96,41 @@
 </tr>
 </tbody>
 </table> -->
+
+<!--Start Update Package-->
+<ng-template #updateModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title"> تعديل الباقة</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <div class="form-group">
+        <label for="name">عدد المفسرين</label>
+        <input formControlName="NumberOfInterpreters" type="" name="NumberOfInterpreters" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="username">السعر</label>
+        <input formControlName="Price" type="text" name="Price" class="form-control" required>
+      </div>
+      <!-- <div class="form-group">
+        <label for="email">البريد الإلكتروني</label>
+        <input [(ngModel)]="service.employee.email" type="email" name="email" class="form-control">
+      </div> -->
+      <!-- <div class="form-group">
+        <label for="coniformPassword">تأكيد كلمة المرور</label>
+        <input [(ngModel)]="employeeService.employee.coniformPassword" type="password" name="coniformPassword" class="form-control">
+      </div> -->
+      <div class="modal-footer">
+        <button class="btn btn-warning" type="submit" [disabled]="!form.valid" (click)="addNewPurchase()"> حفظ</button>
+      </div>
+      <div class="col-md-12">
+        <p *ngIf="isCreated" class="alert alert-success">تم التعديل بنجاح</p>
+      </div>
+    </form>
+
+  </div>
+</ng-template>
+<!--Start Update Package-->

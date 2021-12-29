@@ -9,14 +9,11 @@ import { DreamService } from '../services/dream/dream.service';
 })
 export class DreamsComponent implements OnInit {
 
-  constructor(private dreamService: DreamService) { }
-  dreams: Dream[]= []
+  constructor(public service: DreamService) { }
+  // dreams: Dream[]= []
   p = 1;
   ngOnInit(): void {
-    this.getAllDreams()
+    this.service.getAllDreams();
   }
 
-  getAllDreams(){
-    this.dreams = this.dreamService.getAllDreams()
-  }
 }
